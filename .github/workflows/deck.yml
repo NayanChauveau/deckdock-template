@@ -56,14 +56,13 @@ jobs:
     needs: build
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
+    concurrency:
+      group: publish-dist
+      cancel-in-progress: false
     permissions:
       contents: write
     steps:
       - uses: actions/checkout@v4
-
-      - uses: astral-sh/setup-uv@v5
-
-      - run: uv sync --locked
 
       - uses: actions/download-artifact@v4
         with:
@@ -71,7 +70,7 @@ jobs:
           path: dist
 
       - name: Write index.json
-        run: uv run --locked python scripts/make_index.py dist
+        run: python3 scripts/make_index.py dist
 
       - name: Push dist to the dist branch
         working-directory: dist
