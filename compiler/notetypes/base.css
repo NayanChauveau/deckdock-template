@@ -1,0 +1,146 @@
+.card {
+  font-family: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  font-size: 20px;
+  line-height: 1.5;
+  text-align: left;
+  color: #1f2328;
+  background-color: #ffffff;
+  max-width: 40em;
+  margin: 0 auto;
+  padding: 0.5em;
+}
+
+.nightMode .card,
+.card.nightMode {
+  color: #e6e6e6;
+  background-color: #1e1e1e;
+}
+
+.card hr#answer {
+  border: 0;
+  border-top: 1px solid #c8ccd0;
+  margin: 1em 0;
+}
+
+.nightMode .card hr#answer,
+.card.nightMode hr#answer {
+  border-top-color: #444;
+}
+
+.card img {
+  max-width: 100%;
+  height: auto;
+}
+
+.card pre,
+.card code {
+  font-family: ui-monospace, Menlo, Consolas, monospace;
+  font-size: 0.9em;
+}
+
+.card pre {
+  padding: 0.6em 0.8em;
+  overflow-x: auto;
+  border-radius: 4px;
+  background-color: #f3f4f6;
+}
+
+.nightMode .card pre,
+.card.nightMode pre {
+  background-color: #2b2b2b;
+}
+
+.card blockquote {
+  margin: 0.6em 0;
+  padding-left: 0.8em;
+  border-left: 3px solid #c8ccd0;
+  color: #57606a;
+}
+
+.nightMode .card blockquote,
+.card.nightMode blockquote {
+  border-left-color: #555;
+  color: #b0b0b0;
+}
+
+.card table {
+  border-collapse: collapse;
+}
+
+.card th,
+.card td {
+  border: 1px solid #c8ccd0;
+  padding: 0.25em 0.6em;
+}
+
+.nightMode .card th,
+.nightMode .card td,
+.card.nightMode th,
+.card.nightMode td {
+  border-color: #555;
+}
+
+.cloze {
+  font-weight: bold;
+  color: #0b62c4;
+}
+
+.nightMode .cloze,
+.card.nightMode .cloze {
+  color: #6cb2ff;
+}
+
+.dd-extra,
+.dd-explanation {
+  margin-top: 1em;
+  font-size: 0.9em;
+  color: #57606a;
+}
+
+.nightMode .dd-extra,
+.nightMode .dd-explanation,
+.card.nightMode .dd-extra,
+.card.nightMode .dd-explanation {
+  color: #b0b0b0;
+}
+
+.dd-label {
+  font-size: 0.75em;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 0.2em;
+}
+
+.dd-question {
+  margin-bottom: 0.8em;
+}
+
+ol.dd-choices {
+  list-style-type: upper-alpha;
+  margin: 0;
+  padding-left: 1.6em;
+}
+
+ol.dd-choices li {
+  margin: 0.3em 0;
+  padding: 0.35em 0.6em;
+  border: 1px solid #c8ccd0;
+  border-radius: 6px;
+}
+
+.nightMode ol.dd-choices li,
+.card.nightMode ol.dd-choices li {
+  border-color: #555;
+}
+
+ol.dd-choices li.dd-correct {
+  border-color: #1a7f37;
+  background-color: #e6f4ea;
+}
+
+.nightMode ol.dd-choices li.dd-correct,
+.card.nightMode ol.dd-choices li.dd-correct {
+  border-color: #3fb950;
+  background-color: #1b3a25;
+}

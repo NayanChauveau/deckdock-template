@@ -1,0 +1,41 @@
+[project]
+name = "deck-compiler"
+version = "0.1.0"
+description = "Example compiler: turns the YAML in this repo into deckdock/1 JSON."
+license = "MIT"
+requires-python = ">=3.13"
+dependencies = [
+    "deckdock",
+    "pydantic>=2.9",
+    "pyyaml>=6.0.2",
+    "markdown-it-py>=3.0",
+]
+
+[project.scripts]
+compile = "compiler.cli:main"
+
+[dependency-groups]
+dev = [
+    "pytest",
+    "ruff",
+    "basedpyright",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["compiler"]
+include = ["compiler/notetypes/*"]
+
+[tool.uv.sources]
+deckdock = { path = "../deckdock/cli", editable = true }
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.basedpyright]
+include = ["compiler", "tests"]
+# The deckdock library ships no py.typed marker yet.
+reportMissingTypeStubs = false
