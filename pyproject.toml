@@ -30,12 +30,10 @@ packages = ["compiler"]
 include = ["compiler/notetypes/*"]
 
 [tool.uv.sources]
-deckdock = { path = "../deckdock/cli", editable = true }
+deckdock = { git = "https://github.com/NayanChauveau/deckdock", tag = "v2", subdirectory = "cli" }
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 
 [tool.basedpyright]
 include = ["compiler", "tests"]
-# The deckdock library ships no py.typed marker yet.
-reportMissingTypeStubs = false
