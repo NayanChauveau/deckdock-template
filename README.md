@@ -35,6 +35,9 @@ requirement is that the `dist/` it produces passes `deckdock check`. See
 Every push and pull request runs the compiler in GitHub Actions. Open the run and download the
 `deck` artifact: it contains `<edition>/deck.json` and `<edition>/media/` for each edition.
 
+After each push to `main`, the `dist` branch contains the compiled deck: subscribe in DeckDock
+with the repository URL.
+
 ## Writing cards
 
 - [AGENTS.md](AGENTS.md): file layout, card formats, rules and commands. Also the brief for AI coding agents.

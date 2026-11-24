@@ -5,9 +5,14 @@ on:
   push:
     branches: [main]
 
+permissions:
+  contents: read
+
 jobs:
   build:
     runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.version.outputs.version }}
     steps:
       - uses: actions/checkout@v4
 
@@ -18,7 +23,11 @@ jobs:
       - run: uv run --locked pytest -q
 
       - name: Set deck version
-        run: echo "DECKDOCK_VERSION=$(date -u +%Y-%m-%dT%H:%M:%SZ)+${GITHUB_SHA::7}" >> "$GITHUB_ENV"
+        id: version
+        run: |
+          version="$(date -u +%Y-%m-%dT%H:%M:%SZ)+${GITHUB_SHA::7}"
+          echo "DECKDOCK_VERSION=${version}" >> "$GITHUB_ENV"
+          echo "version=${version}" >> "$GITHUB_OUTPUT"
 
       - name: Compile the deck
         run: uv run --locked compile
@@ -41,3 +50,39 @@ jobs:
       #     command: publish
       #   env:
       #     DECKDOCK_TOKEN: ${{ secrets.DECKDOCK_TOKEN }}
+
+  # After each push to main, the `dist` branch holds the compiled deck (index.json at its root).
+  publish-dist:
+    needs: build
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: astral-sh/setup-uv@v5
+
+      - run: uv sync --locked
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: deck
+          path: dist
+
+      - name: Write index.json
+        run: uv run --locked python scripts/make_index.py dist
+
+      - name: Push dist to the dist branch
+        working-directory: dist
+        env:
+          DECKDOCK_VERSION: ${{ needs.build.outputs.version }}
+          GITHUB_TOKEN_VALUE: ${{ github.token }}
+        run: |
+          git init -q
+          git checkout -q --orphan dist
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -q -m "Publish ${DECKDOCK_VERSION}"
+          git push --force "https://x-access-token:${GITHUB_TOKEN_VALUE}@github.com/${GITHUB_REPOSITORY}.git" HEAD:refs/heads/dist
