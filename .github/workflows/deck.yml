@@ -1,0 +1,33 @@
+name: Deck
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set deck version
+        run: echo "DECKDOCK_VERSION=$(date -u +%Y-%m-%dT%H:%M:%SZ)+${GITHUB_SHA::7}" >> "$GITHUB_ENV"
+
+      - uses: NayanChauveau/deckdock/action@v1
+        with:
+          command: build
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: deck
+          path: dist/
+
+      # Available with the DeckDock hub (project 2): add the DECKDOCK_TOKEN secret, then uncomment.
+      # - name: Publish to DeckDock hub
+      #   if: github.ref == 'refs/heads/main'
+      #   uses: NayanChauveau/deckdock/action@v1
+      #   with:
+      #     command: publish
+      #   env:
+      #     DECKDOCK_TOKEN: ${{ secrets.DECKDOCK_TOKEN }}
