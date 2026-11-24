@@ -1,0 +1,335 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "deckdock source",
+  "description": "A deckdock.yaml project file or a cards/*.yaml file.",
+  "anyOf": [
+    {
+      "$ref": "#/$defs/ProjectConfig"
+    },
+    {
+      "$ref": "#/$defs/CardFile"
+    }
+  ],
+  "$defs": {
+    "BasicContent": {
+      "additionalProperties": false,
+      "description": "Content of a `basic` or `reversed` card.",
+      "properties": {
+        "front": {
+          "title": "Front",
+          "type": "string"
+        },
+        "back": {
+          "title": "Back",
+          "type": "string"
+        }
+      },
+      "required": [
+        "front",
+        "back"
+      ],
+      "title": "BasicContent",
+      "type": "object"
+    },
+    "Card": {
+      "additionalProperties": {
+        "anyOf": [
+          {
+            "$ref": "#/$defs/BasicContent"
+          },
+          {
+            "$ref": "#/$defs/ClozeContent"
+          },
+          {
+            "$ref": "#/$defs/McqContent"
+          }
+        ]
+      },
+      "description": "A card. Content is either direct (same for all editions) or per edition.\n\nIn YAML, content keys of the card's type (e.g. `front`) give direct content;\nany other mapping-valued key is an edition block (`fr: {front: ...}`).",
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "type": {
+          "enum": [
+            "basic",
+            "reversed",
+            "cloze",
+            "mcq"
+          ],
+          "title": "Type",
+          "type": "string"
+        },
+        "deck": {
+          "default": "",
+          "title": "Deck",
+          "type": "string"
+        },
+        "tags": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "title": "Tags",
+          "type": "array"
+        },
+        "status": {
+          "default": "reviewed",
+          "enum": [
+            "draft",
+            "reviewed"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "front": {
+          "title": "Front",
+          "type": "string"
+        },
+        "back": {
+          "title": "Back",
+          "type": "string"
+        },
+        "text": {
+          "title": "Text",
+          "type": "string"
+        },
+        "extra": {
+          "default": "",
+          "title": "Extra",
+          "type": "string"
+        },
+        "question": {
+          "title": "Question",
+          "type": "string"
+        },
+        "choices": {
+          "items": {
+            "$ref": "#/$defs/Choice"
+          },
+          "title": "Choices",
+          "type": "array"
+        },
+        "explanation": {
+          "default": "",
+          "title": "Explanation",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "type"
+      ],
+      "title": "Card",
+      "type": "object"
+    },
+    "CardFile": {
+      "additionalProperties": false,
+      "description": "The content of one cards/*.yaml file.",
+      "properties": {
+        "cards": {
+          "items": {
+            "$ref": "#/$defs/Card"
+          },
+          "title": "Cards",
+          "type": "array"
+        }
+      },
+      "required": [
+        "cards"
+      ],
+      "title": "CardFile",
+      "type": "object"
+    },
+    "Choice": {
+      "additionalProperties": false,
+      "properties": {
+        "text": {
+          "title": "Text",
+          "type": "string"
+        },
+        "correct": {
+          "default": false,
+          "title": "Correct",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "text"
+      ],
+      "title": "Choice",
+      "type": "object"
+    },
+    "ClozeContent": {
+      "additionalProperties": false,
+      "properties": {
+        "text": {
+          "title": "Text",
+          "type": "string"
+        },
+        "extra": {
+          "default": "",
+          "title": "Extra",
+          "type": "string"
+        }
+      },
+      "required": [
+        "text"
+      ],
+      "title": "ClozeContent",
+      "type": "object"
+    },
+    "DeckOptions": {
+      "additionalProperties": false,
+      "properties": {
+        "new_per_day": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "New Per Day"
+        },
+        "reviews_per_day": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Reviews Per Day"
+        }
+      },
+      "title": "DeckOptions",
+      "type": "object"
+    },
+    "McqContent": {
+      "additionalProperties": false,
+      "properties": {
+        "question": {
+          "title": "Question",
+          "type": "string"
+        },
+        "choices": {
+          "items": {
+            "$ref": "#/$defs/Choice"
+          },
+          "title": "Choices",
+          "type": "array"
+        },
+        "explanation": {
+          "default": "",
+          "title": "Explanation",
+          "type": "string"
+        }
+      },
+      "required": [
+        "question",
+        "choices"
+      ],
+      "title": "McqContent",
+      "type": "object"
+    },
+    "ProjectConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "name": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "type": "object"
+            }
+          ],
+          "title": "Name"
+        },
+        "description": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Description"
+        },
+        "editions": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Editions",
+          "type": "array"
+        },
+        "license": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "License"
+        },
+        "homepage": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Homepage"
+        },
+        "options": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/DeckOptions"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "editions"
+      ],
+      "title": "ProjectConfig",
+      "type": "object"
+    }
+  }
+}
