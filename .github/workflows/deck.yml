@@ -33,7 +33,7 @@ jobs:
           name: deck
           path: dist/
 
-      # Available with the DeckDock hub (project 2): add the DECKDOCK_TOKEN secret, then uncomment.
+      # Available with the DeckDock hub (project 2, needs a later Action version): add the DECKDOCK_TOKEN secret, then uncomment.
       # - name: Publish to DeckDock hub
       #   if: github.ref == 'refs/heads/main'
       #   uses: NayanChauveau/deckdock/action@v2
