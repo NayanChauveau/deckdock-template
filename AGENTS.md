@@ -5,9 +5,9 @@ Read [CONTENT_GUIDELINES.md](CONTENT_GUIDELINES.md) before writing cards.
 
 ## What this repo is
 
-An Anki deck written as YAML. The YAML in `cards/` is the source of truth;
-[DeckDock](https://github.com/NayanChauveau/deckdock) compiles it into one JSON file per
-edition (`dist/<edition>/deck.json` plus `dist/<edition>/media/`), in the `deckdock/1` format.
+An Anki deck written as YAML. The YAML in `cards/` is the source of truth. The compiler in
+`compiler/` turns it into one JSON file per edition (`dist/<edition>/deck.json` plus
+`dist/<edition>/media/`), in the [`deckdock/1`](https://github.com/NayanChauveau/deckdock/blob/main/spec/deckdock-1.md) format.
 
 ## Layout
 
@@ -16,7 +16,11 @@ edition (`dist/<edition>/deck.json` plus `dist/<edition>/media/`), in the `deckd
 | `deckdock.yaml` | Deck id, name, description, editions, license |
 | `cards/*.yaml` | Cards. One file per topic, many cards per file |
 | `media/` | Images and audio used by cards |
-| `dist/` | Build output. Generated, git-ignored |
+| `dist/` | Compiler output. Generated, git-ignored |
+| `compiler/` | The example compiler (see "Changing the compiler") |
+| `tests/` | Tests of the compiler and of the docs examples |
+| `schema/source.schema.json` | JSON Schema of the YAML, for editor support |
+| `docs/source-format.md` | The YAML format read by the compiler |
 
 ## Hard rules
 
@@ -78,7 +82,7 @@ Use `{{c1::...}}` for each deletion. Numbers (`c1`, `c2`, ...) group deletions i
 
 ### mcq
 
-Give at least 2 choices, exactly one with `correct: true` (`validate` enforces both). Quote `text` if it contains a comma or a colon.
+Give at least 2 choices, exactly one with `correct: true` (the compiler enforces both). Quote `text` if it contains a comma or a colon.
 `explanation` is optional and shown on the back.
 
 ```yaml
@@ -100,15 +104,48 @@ Markdown and inline HTML. Write alt text that describes the image.
 
 ## Commands
 
-Run from the repo root. `uvx` fetches DeckDock on demand, nothing to install.
+Run from the repo root. [uv](https://docs.astral.sh/uv/) installs everything on first use.
 
 ```bash
 # Check the YAML sources (run this after every change)
-uvx --from git+https://github.com/NayanChauveau/deckdock@v1#subdirectory=cli deckdock validate
+uv run compile --validate-only
 
-# Compile into dist/<edition>/deck.json
-uvx --from git+https://github.com/NayanChauveau/deckdock@v1#subdirectory=cli deckdock build
+# Validate, then compile into dist/<edition>/deck.json
+uv run compile
+
+# Run the tests
+uv run pytest
 ```
 
-Errors are reported as `path:line: message`. Fix all of them before committing. CI runs
-`build` on every pull request and on `main`.
+Errors are reported as `path:line: message`. Fix all of them before committing. CI runs the
+tests, then compiles the deck and checks it with `deckdock check`, on every pull request and
+on `main`.
+
+## Changing the compiler
+
+The compiler is an example: change it as you need. The only obligation is that the `dist/` it
+writes passes `deckdock check` (CI runs it). Where things live:
+
+| Path | Role |
+| --- | --- |
+| `compiler/cli.py` | `uv run compile`: arguments, exit code |
+| `compiler/source/models.py` | Pydantic models of `deckdock.yaml` and of cards; also generates `schema/source.schema.json` |
+| `compiler/source/load.py` | Reads the YAML files, keeps line numbers for errors |
+| `compiler/source/validate.py` | Rules that models cannot express (ids, media, editions) |
+| `compiler/render/markdown.py` | Markdown to HTML for card text |
+| `compiler/media.py` | Media path rules (only `media/<name>`, no symlinks, size limits) |
+| `compiler/notetypes.py`, `compiler/notetypes/` | Notetype definitions, and their HTML/CSS/JS templates |
+| `compiler/builder.py` | Turns a validated project into `deck.json` files and copies media |
+
+To add a card type:
+
+1. Add a notetype: its templates in `compiler/notetypes/` and its entry in `compiler/notetypes.py`.
+2. Add a content model for it in `compiler/source/models.py`, and handle it in
+   `compiler/builder.py` and `compiler/source/validate.py`.
+3. Regenerate the schema and document the type in this file:
+   `uv run python -c "import json; from compiler.source.models import source_json_schema as s; print(json.dumps(s(), indent=2, ensure_ascii=False))" > schema/source.schema.json`
+   (check the diff: it must match the existing formatting).
+4. Add tests in `tests/` and run `uv run pytest`, then `uv run compile`.
+
+The library `deckdock` (a dependency) provides the format types, `check_dist`, `guid_for` and
+`card_guid`; use them instead of re-implementing them.

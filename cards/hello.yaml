@@ -1,4 +1,4 @@
-# yaml-language-server: $schema=https://raw.githubusercontent.com/NayanChauveau/deckdock/v1/spec/deckdock-source-1.schema.json
+# yaml-language-server: $schema=../schema/source.schema.json
 
 cards:
   - id: hello-001
