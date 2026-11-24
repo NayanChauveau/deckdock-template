@@ -1,9 +1,9 @@
 repos:
   - repo: local
     hooks:
-      - id: deckdock-validate
-        name: deckdock validate
-        entry: uvx --from git+https://github.com/NayanChauveau/deckdock@v1#subdirectory=cli deckdock validate
+      - id: compile-validate
+        name: validate deck sources
+        entry: uv run compile --validate-only
         language: system
         pass_filenames: false
         files: ^(deckdock\.yaml|cards/|media/)
