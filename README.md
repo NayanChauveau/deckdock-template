@@ -7,7 +7,9 @@ This repo ships with three example cards (basic, cloze, multiple choice) in Fren
 
 1. **Use this template.** Click "Use this template" on GitHub to create your own repo.
 2. **Edit `deckdock.yaml`.** Set the deck `id` (lowercase letters, digits and dashes), the
-   `name` and `description`, and the `editions` you publish (one per language).
+   `name` and `description`, and the `editions` you publish (one per language code, such as
+   `fr` or `en`). Choose the `id`, edition codes and card ids carefully: once the deck is
+   published they are permanent, because changing any of them resets users' review history.
 3. **Add cards and push.** Create files in `cards/` (see [AGENTS.md](AGENTS.md) for the four
    card types), put images in `media/`, then commit and push. Delete the `hello-*` example cards.
 
