@@ -1,0 +1,11 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/NayanChauveau/deckdock/v1/spec/deckdock-source-1.schema.json
+
+id: deckdock-template
+name:
+  fr: Mon deck
+  en: My deck
+description:
+  fr: Un deck Anki collaboratif, écrit en YAML.
+  en: A collaborative Anki deck, written in YAML.
+editions: [fr, en]
+license: CC0-1.0

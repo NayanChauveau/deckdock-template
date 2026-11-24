@@ -1,0 +1,30 @@
+name: Card problem
+description: Report a wrong, unclear or badly translated card.
+labels: [card]
+body:
+  - type: input
+    id: card-id
+    attributes:
+      label: Card id
+      description: The `id` of the card in `cards/*.yaml`, for example `hello-001`.
+    validations:
+      required: true
+  - type: dropdown
+    id: kind
+    attributes:
+      label: What is wrong?
+      options:
+        - Factual error
+        - Ambiguous or unclear
+        - Translation
+        - Formatting or media
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: Details
+      description: What should the card say instead? Add a source if you can.
+    validations:
+      required: true
