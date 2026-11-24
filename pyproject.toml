@@ -34,6 +34,7 @@ deckdock = { git = "https://github.com/NayanChauveau/deckdock", tag = "v2", subd
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+pythonpath = ["."]
 
 [tool.basedpyright]
-include = ["compiler", "tests"]
+include = ["compiler", "scripts", "tests"]
