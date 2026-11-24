@@ -1,6 +1,6 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/NayanChauveau/deckdock/v1/spec/deckdock-source-1.schema.json
 
-id: deckdock-template
+id: my-deck
 name:
   fr: Mon deck
   en: My deck

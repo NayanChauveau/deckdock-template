@@ -20,7 +20,8 @@ edition (`dist/<edition>/deck.json` plus `dist/<edition>/media/`), in the `deckd
 
 ## Hard rules
 
-- Card `id` values are permanent. Never rename or reuse a released id: Anki progress is tied to it.
+- The deck `id` and the `editions` codes in `deckdock.yaml`, and every card `id`, are permanent once published.
+  Anki note GUIDs are derived from them: changing any of them resets every user's review history. Never rename or reuse them.
 - Ids are lowercase letters, digits and single dashes (`topic-subtopic-001`), unique across the whole project.
 - Append cards to the existing topic file. Do not create one file per card.
 - Every media file lives in `media/` and is referenced as `media/<name>`. No other path is accepted.
