@@ -26,6 +26,7 @@ An Anki deck written as YAML. The YAML in `cards/` is the source of truth. The c
 
 - The deck `id` and the `editions` codes in `deckdock.yaml`, and every card `id`, are permanent once published.
   Anki note GUIDs are derived from them: changing any of them resets every user's review history. Never rename or reuse them.
+- Never change the structure (fields, templates, kind) of a published notetype: see "Changing a published notetype".
 - Ids are lowercase letters, digits and single dashes (`topic-subtopic-001`), unique across the whole project.
 - Append cards to the existing topic file. Do not create one file per card.
 - Every media file lives in `media/` and is referenced as `media/<name>`. No other path is accepted.
@@ -149,3 +150,18 @@ To add a card type:
 
 The library `deckdock` (a dependency) provides the format types, `check_dist`, `guid_for` and
 `card_guid`; use them instead of re-implementing them.
+
+### Changing a published notetype
+
+Once the deck is published, subscribers have its notetypes in their Anki collection. Before
+changing a notetype in `compiler/notetypes.py` or `compiler/notetypes/`, check which kind of
+change it is:
+
+| Change | Effect on subscribers |
+| --- | --- |
+| Card text (fields' values), tags, adding or retiring cards, template text (HTML layout), CSS | Safe: applied normally, review history kept |
+| Adding a field **at the end** of a notetype | Requires a full AnkiWeb sync: subscribers must confirm and sync their other devices first, or unsynced reviews from those devices can be lost. Avoid unless necessary, and say so in the release notes |
+| Removing, renaming or reordering fields; adding or removing a template (a card side); switching between basic and cloze | **Blocked**: subscribers' updates are refused and they stay on the old version. Never do this to a published notetype |
+
+To change the structure of a published card type, create a new notetype (a new `id`) and use it
+for new cards instead of editing the old one.
