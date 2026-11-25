@@ -22,6 +22,8 @@ This repo ships with three example cards (basic, cloze, multiple choice) in Fren
 
 5. **Push.** CI runs the tests, compiles the deck and checks the result.
 
+To publish to the hub, add the secret `DECKDOCK_TOKEN` and the variable `DECKDOCK_HUB_URL` in the repository settings; pushes to `main` then upload each edition.
+
 ## Your own compiler
 
 This repo contains its own compiler (the `compiler/` folder): modify it freely. It is an

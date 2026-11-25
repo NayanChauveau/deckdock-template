@@ -11,6 +11,8 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      DECKDOCK_TOKEN: ${{ secrets.DECKDOCK_TOKEN }}
     outputs:
       version: ${{ steps.version.outputs.version }}
     steps:
@@ -42,14 +44,13 @@ jobs:
           name: deck
           path: dist/
 
-      # Available with the DeckDock hub (project 2, needs a later Action version): add the DECKDOCK_TOKEN secret, then uncomment.
-      # - name: Publish to DeckDock hub
-      #   if: github.ref == 'refs/heads/main'
-      #   uses: NayanChauveau/deckdock/action@v2
-      #   with:
-      #     command: publish
-      #   env:
-      #     DECKDOCK_TOKEN: ${{ secrets.DECKDOCK_TOKEN }}
+      - name: Publish to DeckDock hub
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main' && env.DECKDOCK_TOKEN != '' && vars.DECKDOCK_HUB_URL != ''
+        uses: NayanChauveau/deckdock/action@v2
+        with:
+          command: publish
+          path: dist
+          hub-url: ${{ vars.DECKDOCK_HUB_URL }}
 
   # After each push to main, the `dist` branch holds the compiled deck (index.json at its root).
   publish-dist:
