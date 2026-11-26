@@ -1,0 +1,117 @@
+{
+  "format": "deckdock/1",
+  "deck": {
+    "id": "my-deck",
+    "edition": "en",
+    "name": "My deck",
+    "language": [
+      "en"
+    ],
+    "version": "2026-11-26T10:25:22Z+4804309",
+    "description": "A collaborative Anki deck, written in YAML.",
+    "icon": "📚",
+    "homepage": "https://github.com/NayanChauveau/deckdock-template",
+    "license": "CC0-1.0",
+    "generator": "deck-compiler (deckdock-template)"
+  },
+  "notetypes": [
+    {
+      "id": "basic",
+      "name": "DeckDock Basic",
+      "kind": "standard",
+      "fields": [
+        "Front",
+        "Back"
+      ],
+      "templates": [
+        {
+          "name": "Card 1",
+          "front": "{{Front}}\n",
+          "back": "{{FrontSide}}\n<hr id=\"answer\">\n{{Back}}\n"
+        }
+      ],
+      "css": ".card {\n  font-family: -apple-system, \"Segoe UI\", Helvetica, Arial, sans-serif;\n  font-size: 20px;\n  line-height: 1.5;\n  text-align: left;\n  color: #1f2328;\n  background-color: #ffffff;\n  max-width: 40em;\n  margin: 0 auto;\n  padding: 0.5em;\n}\n\n.nightMode .card,\n.card.nightMode {\n  color: #e6e6e6;\n  background-color: #1e1e1e;\n}\n\n.card hr#answer {\n  border: 0;\n  border-top: 1px solid #c8ccd0;\n  margin: 1em 0;\n}\n\n.nightMode .card hr#answer,\n.card.nightMode hr#answer {\n  border-top-color: #444;\n}\n\n.card img {\n  max-width: 100%;\n  height: auto;\n}\n\n.card pre,\n.card code {\n  font-family: ui-monospace, Menlo, Consolas, monospace;\n  font-size: 0.9em;\n}\n\n.card pre {\n  padding: 0.6em 0.8em;\n  overflow-x: auto;\n  border-radius: 4px;\n  background-color: #f3f4f6;\n}\n\n.nightMode .card pre,\n.card.nightMode pre {\n  background-color: #2b2b2b;\n}\n\n.card blockquote {\n  margin: 0.6em 0;\n  padding-left: 0.8em;\n  border-left: 3px solid #c8ccd0;\n  color: #57606a;\n}\n\n.nightMode .card blockquote,\n.card.nightMode blockquote {\n  border-left-color: #555;\n  color: #b0b0b0;\n}\n\n.card table {\n  border-collapse: collapse;\n}\n\n.card th,\n.card td {\n  border: 1px solid #c8ccd0;\n  padding: 0.25em 0.6em;\n}\n\n.nightMode .card th,\n.nightMode .card td,\n.card.nightMode th,\n.card.nightMode td {\n  border-color: #555;\n}\n\n.cloze {\n  font-weight: bold;\n  color: #0b62c4;\n}\n\n.nightMode .cloze,\n.card.nightMode .cloze {\n  color: #6cb2ff;\n}\n\n.dd-extra,\n.dd-explanation {\n  margin-top: 1em;\n  font-size: 0.9em;\n  color: #57606a;\n}\n\n.nightMode .dd-extra,\n.nightMode .dd-explanation,\n.card.nightMode .dd-extra,\n.card.nightMode .dd-explanation {\n  color: #b0b0b0;\n}\n\n.dd-label {\n  font-size: 0.75em;\n  font-weight: 600;\n  letter-spacing: 0.05em;\n  text-transform: uppercase;\n  margin-bottom: 0.2em;\n}\n\n.dd-question {\n  margin-bottom: 0.8em;\n}\n\nol.dd-choices {\n  list-style-type: upper-alpha;\n  margin: 0;\n  padding-left: 1.6em;\n}\n\nol.dd-choices li {\n  margin: 0.3em 0;\n  padding: 0.35em 0.6em;\n  border: 1px solid #c8ccd0;\n  border-radius: 6px;\n}\n\n.nightMode ol.dd-choices li,\n.card.nightMode ol.dd-choices li {\n  border-color: #555;\n}\n\nol.dd-choices li.dd-correct {\n  border-color: #1a7f37;\n  background-color: #e6f4ea;\n}\n\n.nightMode ol.dd-choices li.dd-correct,\n.card.nightMode ol.dd-choices li.dd-correct {\n  border-color: #3fb950;\n  background-color: #1b3a25;\n}\n"
+    },
+    {
+      "id": "cloze",
+      "name": "DeckDock Cloze",
+      "kind": "cloze",
+      "fields": [
+        "Text",
+        "Extra"
+      ],
+      "templates": [
+        {
+          "name": "Card 1",
+          "front": "{{cloze:Text}}\n",
+          "back": "{{cloze:Text}}\n{{#Extra}}<div class=\"dd-extra\">{{Extra}}</div>{{/Extra}}\n"
+        }
+      ],
+      "css": ".card {\n  font-family: -apple-system, \"Segoe UI\", Helvetica, Arial, sans-serif;\n  font-size: 20px;\n  line-height: 1.5;\n  text-align: left;\n  color: #1f2328;\n  background-color: #ffffff;\n  max-width: 40em;\n  margin: 0 auto;\n  padding: 0.5em;\n}\n\n.nightMode .card,\n.card.nightMode {\n  color: #e6e6e6;\n  background-color: #1e1e1e;\n}\n\n.card hr#answer {\n  border: 0;\n  border-top: 1px solid #c8ccd0;\n  margin: 1em 0;\n}\n\n.nightMode .card hr#answer,\n.card.nightMode hr#answer {\n  border-top-color: #444;\n}\n\n.card img {\n  max-width: 100%;\n  height: auto;\n}\n\n.card pre,\n.card code {\n  font-family: ui-monospace, Menlo, Consolas, monospace;\n  font-size: 0.9em;\n}\n\n.card pre {\n  padding: 0.6em 0.8em;\n  overflow-x: auto;\n  border-radius: 4px;\n  background-color: #f3f4f6;\n}\n\n.nightMode .card pre,\n.card.nightMode pre {\n  background-color: #2b2b2b;\n}\n\n.card blockquote {\n  margin: 0.6em 0;\n  padding-left: 0.8em;\n  border-left: 3px solid #c8ccd0;\n  color: #57606a;\n}\n\n.nightMode .card blockquote,\n.card.nightMode blockquote {\n  border-left-color: #555;\n  color: #b0b0b0;\n}\n\n.card table {\n  border-collapse: collapse;\n}\n\n.card th,\n.card td {\n  border: 1px solid #c8ccd0;\n  padding: 0.25em 0.6em;\n}\n\n.nightMode .card th,\n.nightMode .card td,\n.card.nightMode th,\n.card.nightMode td {\n  border-color: #555;\n}\n\n.cloze {\n  font-weight: bold;\n  color: #0b62c4;\n}\n\n.nightMode .cloze,\n.card.nightMode .cloze {\n  color: #6cb2ff;\n}\n\n.dd-extra,\n.dd-explanation {\n  margin-top: 1em;\n  font-size: 0.9em;\n  color: #57606a;\n}\n\n.nightMode .dd-extra,\n.nightMode .dd-explanation,\n.card.nightMode .dd-extra,\n.card.nightMode .dd-explanation {\n  color: #b0b0b0;\n}\n\n.dd-label {\n  font-size: 0.75em;\n  font-weight: 600;\n  letter-spacing: 0.05em;\n  text-transform: uppercase;\n  margin-bottom: 0.2em;\n}\n\n.dd-question {\n  margin-bottom: 0.8em;\n}\n\nol.dd-choices {\n  list-style-type: upper-alpha;\n  margin: 0;\n  padding-left: 1.6em;\n}\n\nol.dd-choices li {\n  margin: 0.3em 0;\n  padding: 0.35em 0.6em;\n  border: 1px solid #c8ccd0;\n  border-radius: 6px;\n}\n\n.nightMode ol.dd-choices li,\n.card.nightMode ol.dd-choices li {\n  border-color: #555;\n}\n\nol.dd-choices li.dd-correct {\n  border-color: #1a7f37;\n  background-color: #e6f4ea;\n}\n\n.nightMode ol.dd-choices li.dd-correct,\n.card.nightMode ol.dd-choices li.dd-correct {\n  border-color: #3fb950;\n  background-color: #1b3a25;\n}\n"
+    },
+    {
+      "id": "mcq",
+      "name": "DeckDock MCQ",
+      "kind": "standard",
+      "fields": [
+        "Question",
+        "Choices",
+        "Explanation"
+      ],
+      "templates": [
+        {
+          "name": "Card 1",
+          "front": "<div class=\"dd-question\">{{Question}}</div>\n{{Choices}}\n<script>\n(function () {\n  try {\n    var list = document.querySelector(\"ol.dd-choices\");\n    var qEl = document.querySelector(\".dd-question\");\n    if (!list || !qEl) return;\n    var items = Array.prototype.slice.call(list.children);\n    var n = items.length;\n    if (n < 2) return;\n    var key = \"deckdock-mcq:\" + qEl.textContent;\n    var reveal = !!document.querySelector(\".dd-back\");\n\n    function valid(o) {\n      if (!Array.isArray(o) || o.length !== n) return false;\n      for (var i = 0; i < n; i++) if (o.indexOf(i) === -1) return false;\n      return true;\n    }\n    function load() {\n      try {\n        var o = JSON.parse(window.sessionStorage.getItem(key));\n        return valid(o) ? o : null;\n      } catch (e) {\n        return null;\n      }\n    }\n    function save(o) {\n      try {\n        window.sessionStorage.setItem(key, JSON.stringify(o));\n        return true;\n      } catch (e) {\n        return false;\n      }\n    }\n    function apply(o) {\n      for (var i = 0; i < o.length; i++) list.appendChild(items[o[i]]);\n    }\n\n    var order = null;\n    if (reveal) {\n      order = load();\n    } else {\n      var o = [];\n      for (var i = 0; i < n; i++) o.push(i);\n      for (var j = n - 1; j > 0; j--) {\n        var k = Math.floor(Math.random() * (j + 1));\n        var t = o[j];\n        o[j] = o[k];\n        o[k] = t;\n      }\n      // Only shuffle when the order can be replayed on the back.\n      if (save(o)) order = o;\n    }\n    if (order) apply(order);\n\n    if (reveal) {\n      for (var m = 0; m < n; m++) {\n        if (items[m].getAttribute(\"data-correct\") === \"1\") items[m].className += \" dd-correct\";\n      }\n    }\n  } catch (e) {\n    /* keep the original order */\n  }\n})();\n</script>\n",
+          "back": "<div class=\"dd-back\">\n<div class=\"dd-question\">{{Question}}</div>\n{{Choices}}\n<hr id=\"answer\">\n{{#Explanation}}<div class=\"dd-explanation\"><div class=\"dd-label\">Explanation</div>{{Explanation}}</div>{{/Explanation}}\n</div>\n<script>\n(function () {\n  try {\n    var list = document.querySelector(\"ol.dd-choices\");\n    var qEl = document.querySelector(\".dd-question\");\n    if (!list || !qEl) return;\n    var items = Array.prototype.slice.call(list.children);\n    var n = items.length;\n    if (n < 2) return;\n    var key = \"deckdock-mcq:\" + qEl.textContent;\n    var reveal = !!document.querySelector(\".dd-back\");\n\n    function valid(o) {\n      if (!Array.isArray(o) || o.length !== n) return false;\n      for (var i = 0; i < n; i++) if (o.indexOf(i) === -1) return false;\n      return true;\n    }\n    function load() {\n      try {\n        var o = JSON.parse(window.sessionStorage.getItem(key));\n        return valid(o) ? o : null;\n      } catch (e) {\n        return null;\n      }\n    }\n    function save(o) {\n      try {\n        window.sessionStorage.setItem(key, JSON.stringify(o));\n        return true;\n      } catch (e) {\n        return false;\n      }\n    }\n    function apply(o) {\n      for (var i = 0; i < o.length; i++) list.appendChild(items[o[i]]);\n    }\n\n    var order = null;\n    if (reveal) {\n      order = load();\n    } else {\n      var o = [];\n      for (var i = 0; i < n; i++) o.push(i);\n      for (var j = n - 1; j > 0; j--) {\n        var k = Math.floor(Math.random() * (j + 1));\n        var t = o[j];\n        o[j] = o[k];\n        o[k] = t;\n      }\n      // Only shuffle when the order can be replayed on the back.\n      if (save(o)) order = o;\n    }\n    if (order) apply(order);\n\n    if (reveal) {\n      for (var m = 0; m < n; m++) {\n        if (items[m].getAttribute(\"data-correct\") === \"1\") items[m].className += \" dd-correct\";\n      }\n    }\n  } catch (e) {\n    /* keep the original order */\n  }\n})();\n</script>\n"
+        }
+      ],
+      "css": ".card {\n  font-family: -apple-system, \"Segoe UI\", Helvetica, Arial, sans-serif;\n  font-size: 20px;\n  line-height: 1.5;\n  text-align: left;\n  color: #1f2328;\n  background-color: #ffffff;\n  max-width: 40em;\n  margin: 0 auto;\n  padding: 0.5em;\n}\n\n.nightMode .card,\n.card.nightMode {\n  color: #e6e6e6;\n  background-color: #1e1e1e;\n}\n\n.card hr#answer {\n  border: 0;\n  border-top: 1px solid #c8ccd0;\n  margin: 1em 0;\n}\n\n.nightMode .card hr#answer,\n.card.nightMode hr#answer {\n  border-top-color: #444;\n}\n\n.card img {\n  max-width: 100%;\n  height: auto;\n}\n\n.card pre,\n.card code {\n  font-family: ui-monospace, Menlo, Consolas, monospace;\n  font-size: 0.9em;\n}\n\n.card pre {\n  padding: 0.6em 0.8em;\n  overflow-x: auto;\n  border-radius: 4px;\n  background-color: #f3f4f6;\n}\n\n.nightMode .card pre,\n.card.nightMode pre {\n  background-color: #2b2b2b;\n}\n\n.card blockquote {\n  margin: 0.6em 0;\n  padding-left: 0.8em;\n  border-left: 3px solid #c8ccd0;\n  color: #57606a;\n}\n\n.nightMode .card blockquote,\n.card.nightMode blockquote {\n  border-left-color: #555;\n  color: #b0b0b0;\n}\n\n.card table {\n  border-collapse: collapse;\n}\n\n.card th,\n.card td {\n  border: 1px solid #c8ccd0;\n  padding: 0.25em 0.6em;\n}\n\n.nightMode .card th,\n.nightMode .card td,\n.card.nightMode th,\n.card.nightMode td {\n  border-color: #555;\n}\n\n.cloze {\n  font-weight: bold;\n  color: #0b62c4;\n}\n\n.nightMode .cloze,\n.card.nightMode .cloze {\n  color: #6cb2ff;\n}\n\n.dd-extra,\n.dd-explanation {\n  margin-top: 1em;\n  font-size: 0.9em;\n  color: #57606a;\n}\n\n.nightMode .dd-extra,\n.nightMode .dd-explanation,\n.card.nightMode .dd-extra,\n.card.nightMode .dd-explanation {\n  color: #b0b0b0;\n}\n\n.dd-label {\n  font-size: 0.75em;\n  font-weight: 600;\n  letter-spacing: 0.05em;\n  text-transform: uppercase;\n  margin-bottom: 0.2em;\n}\n\n.dd-question {\n  margin-bottom: 0.8em;\n}\n\nol.dd-choices {\n  list-style-type: upper-alpha;\n  margin: 0;\n  padding-left: 1.6em;\n}\n\nol.dd-choices li {\n  margin: 0.3em 0;\n  padding: 0.35em 0.6em;\n  border: 1px solid #c8ccd0;\n  border-radius: 6px;\n}\n\n.nightMode ol.dd-choices li,\n.card.nightMode ol.dd-choices li {\n  border-color: #555;\n}\n\nol.dd-choices li.dd-correct {\n  border-color: #1a7f37;\n  background-color: #e6f4ea;\n}\n\n.nightMode ol.dd-choices li.dd-correct,\n.card.nightMode ol.dd-choices li.dd-correct {\n  border-color: #3fb950;\n  background-color: #1b3a25;\n}\n"
+    }
+  ],
+  "notes": [
+    {
+      "guid": "dFeiz=W73*",
+      "notetype": "basic",
+      "deck": "",
+      "fields": {
+        "Front": "<p>What does this image show?</p>\n<p><img src=\"hello.png\" alt=\"A gradient square\" /></p>",
+        "Back": "A gradient square, the template's example image."
+      },
+      "tags": [
+        "hello"
+      ]
+    },
+    {
+      "guid": "dl9Mvo%D,1",
+      "notetype": "cloze",
+      "deck": "",
+      "fields": {
+        "Text": "DeckDock decks are written in {{c1::YAML}}.",
+        "Extra": "One file per topic, in the <code>cards/</code> folder."
+      },
+      "tags": [
+        "hello"
+      ]
+    },
+    {
+      "guid": "kLGS{X$h^c",
+      "notetype": "mcq",
+      "deck": "",
+      "fields": {
+        "Question": "Which folder holds the card files?",
+        "Choices": "<ol class=\"dd-choices\"><li data-correct=\"1\">cards/</li><li>media/</li><li>dist/</li></ol>",
+        "Explanation": "Cards go in <code>cards/</code>, images in <code>media/</code>. <code>dist/</code> is generated by the build."
+      },
+      "tags": [
+        "hello"
+      ]
+    }
+  ],
+  "media": [
+    {
+      "filename": "hello.png",
+      "sha256": "3217341548a08f5428d7881c1a29f54359daf4584045b7c676896620548fcb46",
+      "size": 299
+    }
+  ]
+}

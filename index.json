@@ -1,0 +1,21 @@
+{
+  "format": "deckdock-index/1",
+  "editions": [
+    {
+      "edition": "en",
+      "name": "My deck",
+      "language": [
+        "en"
+      ],
+      "version": "2026-11-26T10:25:22Z+4804309"
+    },
+    {
+      "edition": "fr",
+      "name": "Mon deck",
+      "language": [
+        "fr"
+      ],
+      "version": "2026-11-26T10:25:22Z+4804309"
+    }
+  ]
+}
