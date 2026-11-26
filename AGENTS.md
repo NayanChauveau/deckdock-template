@@ -120,7 +120,7 @@ uv run pytest
 
 Errors are reported as `path:line: message`. Fix all of them before committing. CI runs the
 tests, then compiles the deck and checks it with `deckdock check`, on every pull request and
-on `main`.
+on `main`. To publish to the DeckDock hub, the repository needs the secret `DECKDOCK_TOKEN` and the variable `DECKDOCK_HUB_URL`; CI then uploads each edition on push to `main`. The version is the commit's time (UTC) and short SHA, so re-running the workflow of the same commit uploads the same version (the hub answers `already_published`). Only the publish step receives the token.
 
 ## Changing the compiler
 
