@@ -301,3 +301,14 @@ def test_media_directory_is_not_a_file(make_project: MakeProject):
         {"cards/a.yaml": _front("![x](media/dir)"), "media/dir/x.png": b"x"}
     )
     assert messages(root) == ["cards/a.yaml:2: missing media file 'media/dir'"]
+
+
+@pytest.mark.parametrize("icon", ["📚📚", "a", "'📚 '"])
+def test_icon_must_be_a_single_emoji(make_project: MakeProject, icon: str):
+    root = make_project(
+        {
+            "deckdock.yaml": f"id: test-deck\nname: T\nicon: {icon}\neditions: [fr]\n",
+            "cards/a.yaml": "cards:\n" + basic(),
+        }
+    )
+    assert messages(root) == ["deckdock.yaml: icon must be a single emoji"]

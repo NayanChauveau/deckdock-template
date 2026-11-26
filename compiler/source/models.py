@@ -33,6 +33,7 @@ class ProjectConfig(BaseModel):
     id: str
     name: str | dict[str, str]
     description: str | dict[str, str] | None = None
+    icon: str | None = None
     editions: list[str] = Field(min_length=1)
     license: str | None = None
     homepage: str | None = None

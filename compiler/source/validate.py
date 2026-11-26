@@ -4,6 +4,7 @@ import re
 from collections.abc import Iterator
 
 from deckdock.format import SLUG_RE
+from deckdock.format.emoji import is_single_emoji
 from deckdock.issues import Issue
 
 from compiler.media import media_problem
@@ -62,6 +63,8 @@ def _validate_config(project: Project) -> list[Issue]:
     issues: list[Issue] = []
     if not SLUG_RE.fullmatch(config.id):
         issues.append(Issue(CONFIG_FILE, f"invalid project id {config.id!r}"))
+    if config.icon is not None and not is_single_emoji(config.icon):
+        issues.append(Issue(CONFIG_FILE, "icon must be a single emoji"))
     for field, value in (("name", config.name), ("description", config.description)):
         if isinstance(value, dict):
             issues.extend(

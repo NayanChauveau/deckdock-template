@@ -52,7 +52,7 @@ dev = [
 
 [package.metadata]
 requires-dist = [
-    { name = "deckdock", git = "https://github.com/NayanChauveau/deckdock?subdirectory=cli&tag=v2" },
+    { name = "deckdock", git = "https://github.com/NayanChauveau/deckdock?subdirectory=cli&tag=v0" },
     { name = "markdown-it-py", specifier = ">=3.0" },
     { name = "pydantic", specifier = ">=2.9" },
     { name = "pyyaml", specifier = ">=6.0.2" },
@@ -67,8 +67,8 @@ dev = [
 
 [[package]]
 name = "deckdock"
-version = "0.2.0"
-source = { git = "https://github.com/NayanChauveau/deckdock?subdirectory=cli&tag=v2#edb918eec80c63c7f404bd05ee9456f159d2a7d2" }
+version = "0.3.0"
+source = { git = "https://github.com/NayanChauveau/deckdock?subdirectory=cli&tag=v0#db78387930699b0d1c71d9fc5006a944e47d6fa0" }
 
 [[package]]
 name = "iniconfig"

@@ -13,7 +13,7 @@ An Anki deck written as YAML. The YAML in `cards/` is the source of truth. The c
 
 | Path | Role |
 | --- | --- |
-| `deckdock.yaml` | Deck id, name, description, editions, license |
+| `deckdock.yaml` | Deck id, name, icon, description, editions, license, homepage |
 | `cards/*.yaml` | Cards. One file per topic, many cards per file |
 | `media/` | Images and audio used by cards |
 | `dist/` | Compiler output. Generated, git-ignored. CI publishes it, plus `index.json` (from `scripts/make_index.py`), to the `dist` branch on each push to `main` |

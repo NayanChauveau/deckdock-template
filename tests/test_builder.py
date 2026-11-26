@@ -10,7 +10,7 @@ from deckdock.format import check_dist
 from deckdock.guid import card_guid
 from deckdock.issues import Issue
 
-from compiler.builder import build, compile_edition
+from compiler.builder import build, compile_edition, deck_homepage
 from compiler.cli import main
 from compiler.source.load import load_project
 from compiler.source.models import Project
@@ -383,3 +383,54 @@ def test_copy_failure_is_an_issue(make_project: MakeProject, tmp_path: Path):
     assert len(issues) == 1
     assert issues[0].path == str(tmp_path / "out")
     assert issues[0].message.startswith("cannot write output:")
+
+
+def test_icon_copied_to_every_edition(make_project: MakeProject, tmp_path: Path):
+    root = make_project(
+        {
+            "deckdock.yaml": "id: test-deck\nname: Test\nicon: 📚\neditions: [fr, en]\n",
+            "cards/a.yaml": CARDS,
+        }
+    )
+    out = tmp_path / "out"
+    assert build(root, out, "v1") == []
+    for edition in ("fr", "en"):
+        deck = cast(dict[str, object], _read(out / edition / "deck.json")["deck"])
+        assert deck["icon"] == "📚"
+    assert check_dist(out) == []
+
+
+def test_no_icon_no_key(make_project: MakeProject, tmp_path: Path):
+    root = make_project({"cards/a.yaml": CARDS})
+    out = tmp_path / "out"
+    assert build(root, out, "v1") == []
+    assert "icon" not in cast(
+        dict[str, object], _read(out / "fr" / "deck.json")["deck"]
+    )
+
+
+def test_homepage_from_github_env():
+    env = {"GITHUB_SERVER_URL": "https://github.com", "GITHUB_REPOSITORY": "alice/geo"}
+    assert deck_homepage(None, env) == "https://github.com/alice/geo"
+
+
+def test_configured_homepage_wins():
+    env = {"GITHUB_SERVER_URL": "https://github.com", "GITHUB_REPOSITORY": "a/b"}
+    assert deck_homepage("https://example.org", env) == "https://example.org"
+
+
+def test_no_homepage_outside_ci():
+    assert deck_homepage(None, {}) is None
+    assert deck_homepage(None, {"GITHUB_REPOSITORY": "a/b"}) is None
+
+
+def test_build_uses_the_repository_homepage(
+    make_project: MakeProject, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+):
+    monkeypatch.setenv("GITHUB_SERVER_URL", "https://github.com")
+    monkeypatch.setenv("GITHUB_REPOSITORY", "alice/geo")
+    root = make_project({"cards/a.yaml": CARDS})
+    out = tmp_path / "out"
+    assert build(root, out, "v1") == []
+    deck = cast(dict[str, object], _read(out / "fr" / "deck.json")["deck"])
+    assert deck["homepage"] == "https://github.com/alice/geo"

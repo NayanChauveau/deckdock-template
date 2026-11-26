@@ -6,6 +6,13 @@ import pytest
 DEFAULT_CONFIG = "id: test-deck\nname: Test\neditions: [fr, en]\n"
 
 
+@pytest.fixture(autouse=True)
+def outside_github_actions(monkeypatch: pytest.MonkeyPatch) -> None:
+    """Tests run as a local build: CI's GITHUB_* variables would add a homepage."""
+    monkeypatch.delenv("GITHUB_SERVER_URL", raising=False)
+    monkeypatch.delenv("GITHUB_REPOSITORY", raising=False)
+
+
 @pytest.fixture
 def make_project(tmp_path: Path) -> Callable[[dict[str, str | bytes]], Path]:
     """Write `files` (relative path -> content) under tmp_path and return the root.
