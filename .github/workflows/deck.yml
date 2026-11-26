@@ -12,7 +12,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      DECKDOCK_TOKEN: ${{ secrets.DECKDOCK_TOKEN }}
+      # Only whether the token is set: the token itself goes to the publish step alone, never to
+      # the build steps (dependencies, tests, compiler).
+      HAS_HUB_TOKEN: ${{ secrets.DECKDOCK_TOKEN != '' }}
     outputs:
       version: ${{ steps.version.outputs.version }}
     steps:
@@ -24,10 +26,13 @@ jobs:
 
       - run: uv run --locked pytest -q
 
+      # The commit's time (UTC) and short SHA: a re-run of the same commit stamps the same version,
+      # which the hub recognises as already published.
       - name: Set deck version
         id: version
         run: |
-          version="$(date -u +%Y-%m-%dT%H:%M:%SZ)+${GITHUB_SHA::7}"
+          committed="$(TZ=UTC git show -s --format=%cd --date=format-local:%Y-%m-%dT%H:%M:%SZ HEAD)"
+          version="${committed}+${GITHUB_SHA::7}"
           echo "DECKDOCK_VERSION=${version}" >> "$GITHUB_ENV"
           echo "version=${version}" >> "$GITHUB_OUTPUT"
 
@@ -45,8 +50,10 @@ jobs:
           path: dist/
 
       - name: Publish to DeckDock hub
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main' && env.DECKDOCK_TOKEN != '' && vars.DECKDOCK_HUB_URL != ''
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main' && env.HAS_HUB_TOKEN == 'true' && vars.DECKDOCK_HUB_URL != ''
         uses: NayanChauveau/deckdock/action@v2
+        env:
+          DECKDOCK_TOKEN: ${{ secrets.DECKDOCK_TOKEN }}
         with:
           command: publish
           path: dist
