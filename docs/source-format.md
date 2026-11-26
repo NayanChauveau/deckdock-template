@@ -24,7 +24,9 @@ dist/              # compiler output (generated)
 | `name` | yes | Deck name: a string, or a mapping edition code -> string covering every edition. |
 | `editions` | yes | Non-empty list of unique edition codes, same pattern as `id`. **Permanent.** |
 | `description` | no | A string, or a mapping edition code -> string covering every edition. |
-| `license`, `homepage` | no | Strings copied to the compiled deck. |
+| `icon` | no | One emoji shown next to the deck on the hub (a flag, a combined emoji or a skin tone counts as one). |
+| `license` | no | String copied to the compiled deck. |
+| `homepage` | no | String copied to the compiled deck. If absent, a build on GitHub Actions uses the repository's address (`GITHUB_SERVER_URL`/`GITHUB_REPOSITORY`); a local build leaves it out. |
 | `options` | no | `new_per_day`, `reviews_per_day` (integers >= 0). |
 
 In this simple format an edition code is a **language code** (`fr`, `en`, `pt-br`...): the

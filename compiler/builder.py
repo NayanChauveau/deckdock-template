@@ -2,7 +2,9 @@
 
 import hashlib
 import json
+import os
 import shutil
+from collections.abc import Mapping
 from pathlib import Path
 from typing import cast
 
@@ -37,6 +39,16 @@ def _localized(value: str | dict[str, str] | None, edition: str) -> str | None:
     return value
 
 
+def deck_homepage(configured: str | None, env: Mapping[str, str]) -> str | None:
+    """The deck's homepage: the one in deckdock.yaml, else the GitHub repository being built."""
+    if configured is not None:
+        return configured
+    server, repository = env.get("GITHUB_SERVER_URL"), env.get("GITHUB_REPOSITORY")
+    if server and repository:
+        return f"{server.rstrip('/')}/{repository}"
+    return None
+
+
 def _deck_object(project: Project, edition: str, version: str) -> Deck:
     """The `deck` object, keys in the order of the specification's table."""
     config = project.config
@@ -50,8 +62,11 @@ def _deck_object(project: Project, edition: str, version: str) -> Deck:
     description = _localized(config.description, edition)
     if description is not None:
         deck["description"] = description
-    if config.homepage is not None:
-        deck["homepage"] = config.homepage
+    if config.icon is not None:
+        deck["icon"] = config.icon
+    homepage = deck_homepage(config.homepage, os.environ)
+    if homepage is not None:
+        deck["homepage"] = homepage
     if config.license is not None:
         deck["license"] = config.license
     deck["generator"] = "deck-compiler (deckdock-template)"

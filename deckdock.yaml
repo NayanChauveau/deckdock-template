@@ -4,6 +4,8 @@ id: my-deck
 name:
   fr: Mon deck
   en: My deck
+# Optional: one emoji shown next to the deck on the hub.
+icon: 📚
 description:
   fr: Un deck Anki collaboratif, écrit en YAML.
   en: A collaborative Anki deck, written in YAML.

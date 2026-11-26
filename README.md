@@ -8,7 +8,7 @@ This repo ships with three example cards (basic, cloze, multiple choice) in Fren
 
 1. **Use this template.** Click "Use this template" on GitHub to create your own repo.
 2. **Edit `deckdock.yaml`.** Set the deck `id` (lowercase letters, digits and dashes), the
-   `name` and `description`, and the `editions` you publish (one per language code, such as
+   `name`, `description` and `icon` (one emoji, optional), and the `editions` you publish (one per language code, such as
    `fr` or `en`). Choose the `id`, edition codes and card ids carefully: once the deck is
    published they are permanent, because changing any of them resets users' review history.
 3. **Add cards.** Create files in `cards/` (see [AGENTS.md](AGENTS.md) for the four card
@@ -22,7 +22,9 @@ This repo ships with three example cards (basic, cloze, multiple choice) in Fren
 
 5. **Push.** CI runs the tests, compiles the deck and checks the result.
 
-To publish to the hub, add the secret `DECKDOCK_TOKEN` and the variable `DECKDOCK_HUB_URL` in the repository settings; pushes to `main` then upload each edition. The version is the commit's time (UTC) and short SHA, so re-running the workflow of the same commit uploads the same version (the hub answers `already_published`). Only the publish step receives the token.
+To publish to the hub, add the secret `DECKDOCK_TOKEN` and the variable `DECKDOCK_HUB_URL` in the repository settings; pushes to `main` then upload each edition. The version is the commit's time (UTC) and short SHA, so re-running the workflow of the same commit uploads the same version (the hub answers `already_published`). Only the publish step receives the token. The deck's `homepage` defaults to this repository's address, which the hub shows as the deck's source.
+
+Repositories created from an earlier version of this template need no change: `icon` and the automatic `homepage` are optional.
 
 ## Your own compiler
 
