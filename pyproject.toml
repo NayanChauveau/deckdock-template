@@ -30,7 +30,7 @@ packages = ["compiler"]
 include = ["compiler/notetypes/*"]
 
 [tool.uv.sources]
-deckdock = { git = "https://github.com/NayanChauveau/deckdock", tag = "v2", subdirectory = "cli" }
+deckdock = { git = "https://github.com/NayanChauveau/deckdock", tag = "v0", subdirectory = "cli" }
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

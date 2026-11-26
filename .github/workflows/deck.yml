@@ -39,7 +39,7 @@ jobs:
       - name: Compile the deck
         run: uv run --locked compile
 
-      - uses: NayanChauveau/deckdock/action@v2
+      - uses: NayanChauveau/deckdock/action@v0
         with:
           command: check
           path: dist
@@ -51,7 +51,7 @@ jobs:
 
       - name: Publish to DeckDock hub
         if: github.event_name == 'push' && github.ref == 'refs/heads/main' && env.HAS_HUB_TOKEN == 'true' && vars.DECKDOCK_HUB_URL != ''
-        uses: NayanChauveau/deckdock/action@v2
+        uses: NayanChauveau/deckdock/action@v0
         env:
           DECKDOCK_TOKEN: ${{ secrets.DECKDOCK_TOKEN }}
         with:
